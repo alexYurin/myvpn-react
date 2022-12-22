@@ -1,0 +1,55 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'styles/colors' as clr;
+
+$theme-common: (
+  screen-tool-close-bg: clr.$red-100,
+  screen-tool-minimize-bg: color.adjust(clr.$green-100, $blackness: 15%),
+  screen-tool-maximize-bg: color.adjust(clr.$orange-100, $lightness: 2%),
+  screen-tool-color: clr.$white-100,
+  switch-bg: color.adjust(clr.$background, $lightness: 20%),
+  switch-track-bg: clr.$foreground,
+  switch-text-on: color.adjust(clr.$comment, $lightness: 20%),
+  switch-text-off: color.adjust(clr.$comment, $lightness: 20%),
+  switch-active-bg: clr.$purple-100,
+  switch-active-text-on: color.adjust(clr.$purple-100, $blackness: 25%),
+  switch-active-text-off: color.adjust(clr.$purple-100, $lightness: 30%),
+) !default;
+
+$theme-dark: (
+  primary: clr.$primary,
+  main-bg: clr.$background,
+  panel-bg: rgba(clr.$selection, 0.5),
+  panel-divider: color.adjust(clr.$selection, $lightness: 10%),
+  panel-item-hover-bg: color.adjust(clr.$comment, $blackness: 10%),
+  panel-item-active-hover-bg: color.adjust(clr.$comment, $blackness: 15%),
+  form-control-bg: color.adjust(clr.$background, $blackness: 15%),
+  modal-overlay-bg: rgba(clr.$selection, 0.5),
+  modal-content-bg: clr.$background,
+  home-button-screen-bg: color.adjust(clr.$background, $lightness: 10%),
+  home-button-screen-hover-bg: color.adjust(clr.$background, $lightness: 20%),
+  provider-screen-title-text: clr.$white-100,
+  text: clr.$comment,
+) !default;
+
+$theme-light: (
+  primary: clr.$primary,
+  main-bg: color.adjust(clr.$foreground, $lightness: 5%),
+  panel-bg: rgba(color.adjust(clr.$comment, $lightness: 45%), 0.4),
+  panel-divider: color.adjust(clr.$comment, $lightness: 40%),
+  panel-item-hover-bg: color.adjust(clr.$comment, $lightness: 35%),
+  panel-item-active-hover-bg: color.adjust(clr.$comment, $lightness: 30%),
+  form-control-bg: color.adjust(clr.$comment, $lightness: 45%),
+  modal-overlay-bg: rgba(clr.$comment, 0.5),
+  modal-content-bg: color.adjust(clr.$foreground, $lightness: 5%),
+  home-button-screen-bg: color.adjust(clr.$comment, $lightness: 35%),
+  home-button-screen-hover-bg: color.adjust(clr.$comment, $lightness: 40%),
+  provider-screen-title-text: clr.$black-100,
+  text: color.adjust(clr.$comment, $blackness: 15%),
+) !default;
+
+$themes: (
+  'common': $theme-common,
+  'dark': $theme-dark,
+  'light': $theme-light,
+) !default;

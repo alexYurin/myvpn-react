@@ -1,0 +1,31 @@
+@use 'styles/functions' as fn;
+@use 'styles/mixins' as mx;
+
+.screen-title {
+  display: flex;
+  align-items: center;
+
+  &__logo {
+    @include mx.in-theme('light') {
+      filter: invert(1);
+    }
+
+    width: auto;
+    height: 20px;
+    object-fit: contain;
+  }
+
+  &__text {
+    @include mx.themify('color', 'provider-screen-title-text');
+
+    margin-left: fn.offset(0.25);
+    font-size: 1.4rem;
+
+    &_main {
+      @include mx.themify('color', 'text');
+      @include mx.set-font(1.65rem, '800');
+
+      margin-left: 0;
+    }
+  }
+}

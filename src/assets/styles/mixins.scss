@@ -1,0 +1,56 @@
+@use 'sass:map';
+@use 'sass:color';
+@use 'styles/functions' as fn;
+@use 'styles/config' as cfg;
+@use 'styles/themes' as tm;
+
+// Media
+@mixin tablet {
+  @media only screen and (min-width: ((cfg.$tablet + 1) * 1px)) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media only screen and (min-width: ((cfg.$desktop + 1) * 1px)) {
+    @content;
+  }
+}
+
+@mixin wide-screen {
+  @media only screen and (min-width: ((cfg.$wide-screen + 1) * 1px)) {
+    @content;
+  }
+}
+
+// Theme
+@mixin themify($property, $theme-color) {
+  @each $theme-name in cfg.$theme-names {
+    html[class=theme-#{$theme-name}] & {
+      #{$property}: fn.theme-color($theme-name, $theme-color);
+    }
+  }
+}
+
+@mixin themify-common($property, $theme-color) {
+  #{$property}: fn.theme-color('common', $theme-color);
+}
+
+@mixin in-theme($theme-name) {
+  html[class=theme-#{$theme-name}] & {
+    @content;
+  }
+}
+
+// Typography
+@mixin set-font($size, $weight: fasle, $color: false) {
+  font-size: $size;
+
+  @if $weight {
+    font-weight: map.get(cfg.$font-weights, $weight);
+  }
+
+  @if $color {
+    color: $color;
+  }
+}

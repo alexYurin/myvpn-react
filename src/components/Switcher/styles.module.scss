@@ -1,0 +1,104 @@
+@use 'sass:math';
+@use 'sass:color';
+@use 'styles/functions' as fn;
+@use 'styles/mixins' as mx;
+@use 'styles/config' as cfg;
+
+$overlay-width: 55px;
+$overlay-height: 30px;
+$track-offset: fn.offset(0.15);
+$track-size: math.div($overlay-width, 2.2);
+$transition-duration: 0.3s;
+
+.container {
+  position: relative;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  user-select: none;
+  cursor: pointer;
+}
+
+.switcher {
+  position: relative;
+  margin-left: fn.offset();
+}
+
+.slot {
+  @include mx.set-font(1rem, '600');
+
+  position: absolute;
+  top: 50%;
+  pointer-events: none;
+  width: $track-size;
+  text-align: center;
+  transform: translateY(-50%);
+
+  &_on {
+    @include mx.themify-common('color', 'switch-text-on');
+
+    left: $track-size;
+    margin-left: $track-offset;
+  }
+
+  &_off {
+    @include mx.themify-common('color', 'switch-text-off');
+
+    left: 0;
+    margin-left: $track-offset;
+  }
+}
+
+.overlay {
+  @include mx.themify-common('background-color', 'switch-bg');
+
+  display: block;
+  position: relative;
+  outline: none;
+  width: $overlay-width;
+  height: $overlay-height;
+  border-radius: cfg.$radius * 2;
+  transition: background-color $transition-duration ease-in-out;
+
+  &::after {
+    @include mx.themify-common('background-color', 'switch-track-bg');
+
+    content: '';
+    display: block;
+    position: absolute;
+    top: $track-offset;
+    left: $track-offset;
+    bottom: $track-offset;
+    width: $track-size;
+    height: $track-size;
+    border-radius: 50%;
+    transition: margin $transition-duration ease-in-out;
+  }
+}
+
+.trigger {
+  display: none;
+
+  &:checked {
+    ~ .slot_on {
+      @include mx.themify-common('color', 'switch-active-text-on');
+    }
+
+    ~ .slot_off {
+      @include mx.themify-common('color', 'switch-active-text-off');
+    }
+
+    ~ .overlay {
+      @include mx.themify-common('background-color', 'switch-active-bg');
+
+      &::after {
+        margin-left: math.div($overlay-width, 2.2);
+      }
+    }
+  }
+}
+
+.content {
+  @include mx.themify-common('color', 'text');
+}

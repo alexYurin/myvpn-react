@@ -1,0 +1,44 @@
+@use 'styles/functions' as fn;
+
+$panel-width: 65px;
+
+.container {
+  display: grid;
+  grid-template-areas:
+    'panel header'
+    'panel content';
+  grid-template-columns: $panel-width 1fr;
+  grid-template-rows: auto 1fr;
+  align-items: flex-start;
+}
+
+.header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 fn.offset();
+}
+
+.title {
+  width: 100%;
+  margin-top: fn.offset();
+  margin-right: fn.offset();
+  -webkit-app-region: drag;
+}
+
+.tools {
+  margin-top: fn.offset(0.8);
+  align-self: baseline;
+}
+
+.panel {
+  grid-area: panel;
+  position: relative;
+  height: 100vh;
+}
+
+.content {
+  grid-area: content;
+  padding: fn.offset();
+}

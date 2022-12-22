@@ -1,0 +1,52 @@
+@use 'styles/functions' as fn;
+@use 'styles/config' as cfg;
+@use 'styles/mixins' as mx;
+
+$modal-overlay-classname: 'ReactModal__Overlay';
+$modal-content-classname: 'ReactModal__Content';
+$modal-open-classname: 'ReactModal__Body--open';
+
+.#{$modal-content-classname} {
+  @include mx.themify('background-color', 'modal-content-bg');
+
+  box-shadow: 0 0.4rem 1rem rgba(40, 42, 54, 0.35),
+      0 0.2rem 0.7rem rgba(68, 71, 90, 0.1);
+}
+
+.#{$modal-overlay-classname} {
+  @include mx.themify('background-color', 'modal-overlay-bg');
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: fn.offset(1.5);
+
+  &__title {
+    @include mx.themify('color', 'text');
+    @include mx.set-font(1.6rem, '600');
+  }
+
+  &__close-icon {
+    margin-top: fn.offset(-0.5);
+    margin-left: fn.offset();
+  }
+}
+
+.content {
+  @include mx.themify('color', 'text');
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+:export {
+  border: none;
+  borderRadius: cfg.$radius;
+  contentWidth: clamp(240px, 50%, 600px);
+  contentMargin: 0 auto;
+  contentPadding: fn.offset();
+  backgroundColor: '';
+}

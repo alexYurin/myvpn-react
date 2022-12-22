@@ -1,0 +1,33 @@
+@use 'styles/config' as cfg;
+@use 'styles/functions' as fn;
+@use 'styles/mixins' as mx;
+@use 'styles/colors' as clr;
+
+$home-button-icon-size: 20px;
+$home-button-icon-color-dark: clr.$white-100;
+$home-button-icon-color-light: clr.$black-100;
+
+.home-button {
+  @include mx.themify('background-color', 'home-button-screen-bg');
+
+  display: flex;
+  align-items: center;
+  margin-right: fn.offset();
+  padding: fn.offset(0.2) fn.offset(0.4);
+  border-radius: cfg.$radius;
+
+  &:hover {
+    @include mx.themify('background-color', 'home-button-screen-hover-bg');
+  }
+
+  span {
+    margin-right: fn.offset(0.2);
+    line-height: 0;
+  }
+}
+
+:export {
+  homeButtonIconSize: $home-button-icon-size;
+  homeButtonIconColorDark: $home-button-icon-color-dark;
+  homeButtonIconColorLight: $home-button-icon-color-light;
+}

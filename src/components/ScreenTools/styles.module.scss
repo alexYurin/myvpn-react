@@ -1,0 +1,138 @@
+@use 'sass:math';
+@use 'styles/functions' as fn;
+@use 'styles/config' as cfg;
+@use 'styles/mixins' as mx;
+
+$icon-size: 14px;
+$icon-bg-close: fn.theme-color('common', 'screen-tool-close-bg');
+$icon-bg-minimize: fn.theme-color('common', 'screen-tool-minimize-bg');
+$icon-bg-maximize: fn.theme-color('common', 'screen-tool-maximize-bg');
+$icon-color: fn.theme-color('common', 'screen-tool-color');
+
+.screen-tools {
+  display: flex;
+
+  &:hover .icon_mac {
+    svg {
+      visibility: visible;
+    }
+  }
+
+  .icon {
+    &:not(:last-child) {
+      margin-right: fn.offset(0.8);
+    }
+  }
+
+  .icon_mac {
+    &:not(:last-child) {
+      margin-right: fn.offset(0.45);
+    }
+
+    svg {
+      @include mx.in-theme('light') {
+        filter: invert(1);
+      }
+
+      visibility: hidden;
+    }
+  }
+
+  .icon_linux {
+    &:not(:last-child) {
+      margin-right: fn.offset(0.6);
+    }
+  }
+}
+
+.icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: fn.offset(0.5);
+  width: $icon-size;
+  height: $icon-size;
+  cursor: pointer;
+
+  svg {
+    display: block;
+    visibility: visible;
+  }
+
+  &.icon_close {
+    background-color: $icon-bg-close;
+  }
+
+  &_windows {
+    border-radius: math.div(cfg.$radius, 2.5);
+
+    &.icon_maximize {
+      transform: scaleX(0.8);
+    }
+
+    &.icon_close {
+      transform: scale(1.3);
+      background-color: transparent;
+
+      &:hover {
+        @include mx.in-theme('light') {
+          span {
+            filter: invert(1);
+          }
+        }
+
+        background-color: $icon-bg-close;
+      }
+    }
+
+    svg {
+      @include mx.in-theme('light') {
+        filter: invert(1);
+      }
+    }
+  }
+
+  &_mac {
+    padding: 0;
+    background-color: $icon-bg-minimize;
+
+    &.icon_maximize {
+      background-color: $icon-bg-maximize;
+    }
+
+    &.icon_close {
+      background-color: $icon-bg-close;
+
+      &:hover svg {
+        visibility: visible;
+      }
+    }
+
+    svg {
+      @include mx.in-theme('light') {
+        filter: invert(1);
+      }
+
+      display: block;
+      visibility: hidden;
+      transform: scale(0.6);
+      filter: invert(1);
+    }
+  }
+
+  &_linux {
+    &:not(.icon_close) {
+      @include mx.in-theme('light') {
+        span {
+          filter: invert(1);
+        }
+      }
+    }
+  }
+}
+
+:export {
+  iconSize: $icon-size;
+  iconColor: $icon-color;
+}

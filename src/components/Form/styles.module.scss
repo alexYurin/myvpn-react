@@ -1,0 +1,38 @@
+@use 'sass:color';
+@use 'styles/functions' as fn;
+@use 'styles/config' as cfg;
+@use 'styles/mixins' as mx;
+
+.control {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__label {
+    @include mx.themify('color', 'text');
+    @include mx.set-font(1.4rem, '500');
+
+    margin-bottom: fn.offset(0.5);
+  }
+
+  &__content {
+    @include mx.themify('background-color', 'form-control-bg');
+
+    margin-top: fn.offset(0.2);
+    padding: fn.offset(0.6) fn.offset(0.8);
+    border-radius: cfg.$radius;
+  }
+}
+
+.field {
+  &:not(:last-child) {
+    margin-bottom: fn.offset();
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  margin-top: fn.offset(2);
+  width: 100%;
+}
