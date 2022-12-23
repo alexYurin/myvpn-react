@@ -1,0 +1,17 @@
+@use 'styles/functions' as fn;
+@use 'styles/config' as cfg;
+@use 'styles/mixins' as mx;
+
+.box {
+  @include mx.themify('background-color', 'form-control-bg');
+  @include mx.themify('border-color', 'main-bg', 'lightness', 4%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: fn.offset();
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: cfg.$radius;
+}

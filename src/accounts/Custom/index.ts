@@ -3,7 +3,7 @@ import { AccountType } from '@/accounts/types'
 const account: AccountType = {
   routeTitleLogo: '/images/custom.svg',
   routeTitleText: 'other server',
-  route: 'custom',
+  name: 'custom',
   logo: '/images/custom.png',
   title: 'other server',
 }

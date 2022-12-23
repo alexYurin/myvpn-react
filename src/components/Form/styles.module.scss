@@ -8,6 +8,10 @@
   flex-direction: column;
   width: 100%;
 
+  &:not(:last-child) {
+    margin-bottom: fn.offset(1.5);
+  }
+
   &__label {
     @include mx.themify('color', 'text');
     @include mx.set-font(1.4rem, '500');
@@ -33,6 +37,6 @@
 .footer {
   display: flex;
   flex-direction: column;
-  margin-top: fn.offset(2);
+  margin-top: fn.offset(0.5);
   width: 100%;
 }

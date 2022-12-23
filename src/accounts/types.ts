@@ -21,11 +21,11 @@ export type Oath2ConfigType = {
 export type AccountType = {
   routeTitleLogo: React.ReactNode
   routeTitleText?: string
-  route: AccountNameType
+  name: AccountNameType
   logo: string
   title: string
   website?: string
   faq?: string
-  viaKey?: boolean
+  isOnlyAuthViaKey?: boolean
   oauth2?: Oath2ConfigType
 }

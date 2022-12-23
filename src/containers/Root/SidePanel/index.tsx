@@ -30,18 +30,15 @@ const SidePanel = ({ onPressSettings }: SidePanelProps): JSX.Element => {
       <nav className={cx('nav')}>
         {accounts.map(account => (
           <NavLink
-            to={`/providers/${account.route}`}
-            key={account.route}
-            state={{
-              titleLogo: account.routeTitleLogo,
-              titleText: account.routeTitleText,
-            }}
+            to={`/providers/${account.name}`}
+            key={account.name}
+            state={{ account }}
             className={cx('nav__item', {
-              'nav__item_active': providerRoute === account.route,
+              'nav__item_active': providerRoute === account.name,
             })}
           >
             <img
-              className={cx('nav__item-image', `${account.route}-logo`)}
+              className={cx('nav__item-image', `${account.name}-logo`)}
               src={account.logo}
               alt={account.title}
             />

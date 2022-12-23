@@ -109,6 +109,33 @@ ipcMain.handle('open-win', (event, arg) => {
   }
 })
 
+ipcMain.handle('open-auth-window', (event, arg) => {
+  const { authUrl, authParams } = arg
+
+  const childWindow = new BrowserWindow({
+    webPreferences: {
+      preload,
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  })
+
+  const {session: { webRequest }} = childWindow.webContents
+
+  const filter = {
+    urls: [
+      'http://localhost/*'
+    ]
+  }
+
+  childWindow.loadURL(`${authUrl}/?${authParams}`)
+
+  webRequest.onBeforeRequest(filter, async ({ url }) => {
+    await event.sender.send('oauth2-response-url', url.replace('/#', '?'))
+    childWindow.close()
+  })
+})
+
 ipcMain.handle('close', () => {
   win = null
   app.quit()
@@ -120,4 +147,8 @@ ipcMain.handle('maximize-window', () => {
 
 ipcMain.handle('minimize-window', () => {
   win.minimize()
+})
+
+ipcMain.handle('open-external-url', (event, url) => {
+  shell.openExternal(url)
 })

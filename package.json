@@ -33,9 +33,9 @@
     "react-ionicons": "^4.2.0",
     "react-modal": "^3.16.1",
     "react-redux": "^8.0.5",
+    "react-select": "^5.7.0",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
-    "reselect": "^4.1.7",
     "styled-components": "^5.3.6"
   },
   "devDependencies": {

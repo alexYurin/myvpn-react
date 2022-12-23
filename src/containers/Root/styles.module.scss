@@ -40,5 +40,5 @@ $panel-width: 65px;
 
 .content {
   grid-area: content;
-  padding: fn.offset();
+  padding: fn.offset(0.5) fn.offset() fn.offset();
 }

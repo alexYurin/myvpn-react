@@ -1,0 +1,8 @@
+@use 'styles/functions' as fn;
+@use 'styles/mixins' as mx;
+
+.head {
+  @include mx.set-font(1.5rem, '500');
+
+  margin: 0 0 fn.offset();
+}

@@ -28,6 +28,10 @@ const ModalSettings = ({ isOpen, modalHandlers }: SettingsProps): JSX.Element =>
     isVisible ? modalHandlers.open() : modalHandlers.close()
   }, [])
 
+  const onChangeCheckUpdate = useCallback((isChecked: boolean) => {
+    console.log('change settings', isChecked)
+  }, [])
+
   const onChangeLanguage = useCallback((isChecked: boolean) => {
     dispatch(localeActions.changeLocale(isChecked ? 'ru' : 'en'))
   }, [])
@@ -40,8 +44,24 @@ const ModalSettings = ({ isOpen, modalHandlers }: SettingsProps): JSX.Element =>
   const defaultChekedTheme = themeName === 'dark'
 
   return (
-    <Modal isOpen={isOpen} title={t('settings')} setVisible={setVisible}>
+    <Modal
+      isOpen={isOpen}
+      title={t('settings')}
+      setVisible={setVisible}
+    >
       <section className={cx('settings')}>
+        <Form.Control label={t('app settings')}>
+          <Form.Field>
+            <Switcher
+              slotOff="OFF"
+              slotOn="ON"
+              isChecked={true}
+              onChange={onChangeCheckUpdate}
+            >
+              {t('change check update')}
+            </Switcher>
+          </Form.Field>
+        </Form.Control>
         <Form.Control label={t('personal settings')}>
           <Form.Field>
             <Switcher

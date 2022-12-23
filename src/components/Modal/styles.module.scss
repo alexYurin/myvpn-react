@@ -43,10 +43,12 @@ $modal-open-classname: 'ReactModal__Body--open';
 }
 
 :export {
+  inset: 50% 0 0 50%;
+  transform: translate(-50%, -50%);
+  padding: fn.offset();
+  width: clamp(240px, 50%, 450px);
+  height: fit-content;
   border: none;
   borderRadius: cfg.$radius;
-  contentWidth: clamp(240px, 50%, 600px);
-  contentMargin: 0 auto;
-  contentPadding: fn.offset();
   backgroundColor: '';
 }

@@ -1,0 +1,31 @@
+@use 'styles/functions' as fn;
+@use 'styles/config' as cfg;
+@use 'styles/mixins' as mx;
+@use 'styles/colors' as clr;
+
+$icon-size: 25px;
+$icon-color: clr.$primary;
+
+.faq {
+  flex-direction: row;
+}
+
+.row {
+  display: inline-flex;
+  align-items: center;
+
+  &:not(:last-child) {
+    margin-right: fn.offset(1.2);
+  }
+}
+
+.text {
+  @include mx.themify('color', 'primary');
+
+  margin-left: fn.offset(0.4);
+}
+
+:export {
+  iconSize: $icon-size;
+  iconColor: $icon-color;
+}

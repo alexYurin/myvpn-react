@@ -13,10 +13,6 @@
   @return null;
 }
 
-@function var-name($var-name) {
-  @return var(--#{$var-name});
-}
-
 @function offset($increment: false) {
   @if $increment {
     @return calc(#{cfg.$offset} * #{$increment});

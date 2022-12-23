@@ -1,8 +1,11 @@
 import { RootState, useTypedSelector } from '@/store'
+import { createSelector } from '@reduxjs/toolkit'
 
 export default function () {
   const getLocale = (state: RootState) => state.locale
-  const locale = useTypedSelector(getLocale)
 
-  return locale.name
+  const localeSelector = createSelector(getLocale, locale => locale.name)
+  const localeName = useTypedSelector(localeSelector)
+
+  return localeName
 }

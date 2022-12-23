@@ -29,7 +29,7 @@ $theme-dark: (
   home-button-screen-bg: color.adjust(clr.$background, $lightness: 10%),
   home-button-screen-hover-bg: color.adjust(clr.$background, $lightness: 20%),
   provider-screen-title-text: clr.$white-100,
-  text: clr.$comment,
+  text: color.adjust(clr.$comment, $lightness: 15%),
 ) !default;
 
 $theme-light: (

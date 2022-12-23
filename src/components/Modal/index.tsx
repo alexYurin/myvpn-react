@@ -13,12 +13,14 @@ const mode = import.meta.env.MODE as ModeType
 const cx = classNames.bind(styles)
 
 const {
+  inset,
+  padding,
+  width,
+  height,
   border,
   borderRadius,
-  contentWidth,
-  contentMargin,
-  contentPadding,
-  backgroundColor,
+  transform,
+  backgroundColor
 } = styles
 
 export interface ModalProps extends ReactModal.Props {
@@ -29,18 +31,16 @@ export interface ModalProps extends ReactModal.Props {
 
 const getThemeModalStyles = (): ReactModal.Styles => {
   return {
-    overlay: {
-      backgroundColor,
-    },
+    overlay: { backgroundColor },
     content: {
-      transform: 'translate(50%, 50%)',
-      inset: 'unset',
+      inset,
+      padding,
+      width,
+      height,
       border,
       borderRadius,
+      transform,
       background: backgroundColor,
-      width: contentWidth,
-      margin: contentMargin,
-      padding: contentPadding,
     },
   }
 }

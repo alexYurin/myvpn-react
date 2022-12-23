@@ -24,10 +24,20 @@
 }
 
 // Theme
-@mixin themify($property, $theme-color) {
+@mixin themify($property, $theme-color, $adjust: false, $level: 0%) {
   @each $theme-name in cfg.$theme-names {
     html[class=theme-#{$theme-name}] & {
-      #{$property}: fn.theme-color($theme-name, $theme-color);
+      @if $adjust == 'blackness' {
+        #{$property}: color.adjust(
+          fn.theme-color($theme-name, $theme-color), $blackness: $level
+        );
+      } @else if $adjust == 'lightness' {
+        #{$property}: color.adjust(
+          fn.theme-color($theme-name, $theme-color), $lightness: $level
+        );
+      } @else {
+        #{$property}: fn.theme-color($theme-name, $theme-color);
+      }
     }
   }
 }

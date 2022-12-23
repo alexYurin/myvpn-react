@@ -1,0 +1,7 @@
+@use 'styles/functions' as fn;
+
+.section-box {
+  &:not(:last-child) {
+    margin-bottom: fn.offset(0.5);
+  }
+}
