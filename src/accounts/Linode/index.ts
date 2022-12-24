@@ -2,6 +2,7 @@
 import { AccountType } from '@/accounts/types'
 
 const account: AccountType = {
+  pageHeader: 'login to create server',
   routeTitleLogo: '/images/linode.svg',
   name: 'linode',
   logo: '/images/linode.png',

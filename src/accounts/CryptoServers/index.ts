@@ -3,6 +3,7 @@ import { AccountType } from '@/accounts/types'
 
 const account: AccountType = {
   name: 'cryptoservers',
+  pageHeader: 'login to create server',
   routeTitleLogo: '/images/cryptoservers.svg',
   logo: '/images/cryptoservers.png',
   title: 'CryptoServers',

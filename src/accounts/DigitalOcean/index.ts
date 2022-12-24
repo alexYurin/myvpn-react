@@ -2,6 +2,7 @@
 import { AccountType } from '@/accounts/types'
 
 const account: AccountType = {
+  pageHeader: 'login to create server',
   routeTitleLogo: '/images/digitalocean.svg',
   name: 'digitalocean',
   logo: '/images/digitalocean.png',

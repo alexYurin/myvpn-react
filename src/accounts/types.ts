@@ -21,6 +21,7 @@ export type Oath2ConfigType = {
 export type AccountType = {
   routeTitleLogo: React.ReactNode
   routeTitleText?: string
+  pageHeader: string
   name: AccountNameType
   logo: string
   title: string

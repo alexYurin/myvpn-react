@@ -1,6 +1,7 @@
 import { AccountType } from '@/accounts/types'
 
 const account: AccountType = {
+  pageHeader: 'create custom server',
   routeTitleLogo: '/images/custom.svg',
   routeTitleText: 'other server',
   name: 'custom',

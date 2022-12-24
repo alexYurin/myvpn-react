@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AccountType } from './types'
+import { AccountNameType } from './types'
 
 export type SliceAccountType = {
-  token: string
-  provider: AccountType
+  token?: string
+  provider: AccountNameType
 }
 
 export const initialState: SliceAccountType[] = []
@@ -14,19 +14,19 @@ const slice = createSlice({
   name: nameSlice,
   initialState,
   reducers: {
-    addAccount: (state, action: PayloadAction<SliceAccountType>) => ([
+    registerAccount: (state, action: PayloadAction<SliceAccountType>) => [
       ...state,
-      action.payload
-    ]),
-    removeAccount: (state, action: PayloadAction<SliceAccountType>) => ([
-      ...state,
-      action.payload
-    ]),
+      action.payload,
+    ],
+    removeAccount: (state, action: PayloadAction<SliceAccountType>) => [
+      ...state.filter(account => account.provider !== action.payload.provider),
+    ],
   },
 })
 
 export const accountsActions = {
-  changeLocale: slice.actions.addAccount,
+  registerAccount: slice.actions.registerAccount,
+  removeAccount: slice.actions.removeAccount,
 }
 
 export default slice

@@ -1,6 +1,7 @@
 import { AccountType } from '@/accounts/types'
 
 const account: AccountType = {
+  pageHeader: 'login to create server',
   routeTitleLogo: '/images/hetzner-cloud.svg',
   name: 'hetznerCloud',
   logo: '/images/hetzner-cloud.png',

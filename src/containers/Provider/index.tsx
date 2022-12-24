@@ -1,7 +1,11 @@
 /* eslint-disable camelcase */
 import { useState, useCallback, useEffect } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
+import { useTranslation, withTranslation } from 'react-i18next'
+import { useAppDispatch } from '@/store'
+import { accountsActions } from '@/accounts/slice'
 import { ProviderLinkProps } from '@/containers/types'
+import useRegisterProvider from './useRegisterProvider'
 import AuthModal from './AuthModal'
 import AuthButtons from './AuthButtons'
 import Empty from './Empty'
@@ -16,18 +20,33 @@ const ProviderContainer = () => {
   const [isOpenAuthModal, setOpenAuthModal] = useState(false)
   const { providerRoute } = useParams()
   const { state } = useLocation() as ProviderLinkProps
+  const { t } = useTranslation()
+
+  const dispatch = useAppDispatch()
 
   const { account } = state || {}
 
-  useEffect(() => {
-    ipcRenderer.on('oauth2-response-url', (event, responseUrl) => {
+  const isRegisterProvider = useRegisterProvider(account?.name)
+
+  const onResponseAuthUrl = useCallback(
+    (event: any, responseUrl: string) => {
       const token = new URL(responseUrl)?.searchParams?.get('access_token')
 
-      if (token) {
-
+      if (token && !isRegisterProvider) {
+        dispatch(
+          accountsActions.registerAccount({
+            token,
+            provider: account.name,
+          }),
+        )
       }
-    })
-  }, [])
+    },
+    [dispatch, isRegisterProvider],
+  )
+
+  useEffect(() => {
+    ipcRenderer.on('oauth2-response-url', onResponseAuthUrl)
+  }, [ipcRenderer])
 
   const onCreateServer = useCallback(() => {
     console.log(`Start create server ${providerRoute}`)
@@ -56,27 +75,17 @@ const ProviderContainer = () => {
 
   const isVisibleAuthButtons = Boolean(account?.oauth2 || account?.isOnlyAuthViaKey)
 
-  const title = isVisibleAuthButtons
-    ? 'Login to create a server'
-    : 'Create custom server'
-
   return (
     <div className={cx('provider')}>
-      <h2 className={cx('head')}>{title}</h2>
+      <h2 className={cx('head')}>{t(account?.pageHeader)}</h2>
       <AuthButtons
         isVisible={isVisibleAuthButtons}
         isOnlyAuthVuaKey={account?.isOnlyAuthViaKey}
         onPressAccountButton={onPressAuthAccount}
         onPressAccountKey={onPressAuthKey}
       />
-      <Empty
-        isVisible={false}
-        onPressCreateButton={onCreateServer}
-      />
-      <FAQ
-        urlWebsite={account?.website}
-        urlFAQ={account?.faq}
-      />
+      <Empty isVisible={false} onPressCreateButton={onCreateServer} />
+      <FAQ urlWebsite={account?.website} urlFAQ={account?.faq} />
       <AuthModal
         isOpen={isOpenAuthModal}
         setVisible={setOpenAuthModal}
@@ -86,4 +95,4 @@ const ProviderContainer = () => {
   )
 }
 
-export default ProviderContainer
+export default withTranslation()(ProviderContainer)
