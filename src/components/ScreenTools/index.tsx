@@ -8,15 +8,20 @@ import MinimizeButton from './MinimizeButton'
 
 const mode = import.meta.env.MODE as ModeType
 const cx = classNames.bind(styles)
-const ipcRenderer = window?.require('electron')?.ipcRenderer
 
 const getInvoker = (command: string) => {
   return useCallback(() => {
-    ipcRenderer?.invoke(command)
+    try {
+      window?.require('electron')?.ipcRenderer?.invoke(command)
+    } catch(error) {
+      console.log()
+    }
   }, [])
 }
 
 const ScreenTools = (): JSX.Element | null => {
+  const isVisible = mode !== 'web'
+
   const buttons = [
     {
       label: 'minimize',
@@ -35,7 +40,7 @@ const ScreenTools = (): JSX.Element | null => {
     },
   ]
 
-  if (mode !== 'web') {
+  if (isVisible) {
     return (
       <div className={cx('screen-tools')}>
         {buttons.map(({ ToolButton, label, handler }) => (

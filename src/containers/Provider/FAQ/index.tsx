@@ -12,19 +12,22 @@ interface FAQProps {
 const cx = classNames.bind(styles)
 
 const { iconSize, iconColor } = styles
-const ipcRenderer = window?.require('electron')?.ipcRenderer
-
 
 const FAQ = ({ urlWebsite, urlFAQ }: FAQProps): JSX.Element | null => {
   const onPressLink = useCallback((
     event: MouseEvent
   ) => {
-    event.preventDefault()
+    try {
+      const target = event.target
 
-    const target = event.target
+      if (target instanceof HTMLAnchorElement) {
+        window?.require('electron')?.ipcRenderer
+          ?.invoke('open-external-url', target.href)
+      }
 
-    if (target instanceof HTMLAnchorElement) {
-      ipcRenderer?.invoke('open-external-url', target.href)
+      event.preventDefault()
+    } catch(error) {
+      return
     }
   }, [])
 
@@ -39,8 +42,10 @@ const FAQ = ({ urlWebsite, urlFAQ }: FAQProps): JSX.Element | null => {
           />
           <a
             href={urlWebsite}
+            target="_blank"
             className={cx('text')}
             onClick={onPressLink}
+            rel="noreferrer"
           >
             Go to website
           </a>
@@ -53,8 +58,10 @@ const FAQ = ({ urlWebsite, urlFAQ }: FAQProps): JSX.Element | null => {
           />
           <a
             href={urlFAQ}
+            target="_blank"
             className={cx('text')}
             onClick={onPressLink}
+            rel="noreferrer"
           >
             How to setup
           </a>

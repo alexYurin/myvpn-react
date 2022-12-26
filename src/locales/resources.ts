@@ -2,7 +2,7 @@ export const resources = {
   en: {
     translation: {
       'main header': 'Choose a hosting provider and connect your account',
-      settings: 'Settings',
+      'settings': 'Settings',
       'other server': 'Other server',
       'change check update': 'Check update',
       'change language': 'Change language',
@@ -13,13 +13,14 @@ export const resources = {
       'create server': 'Create server',
       'login to create server': 'Login to create a server',
       'create custom server': 'Create custom server',
+      'logined': 'You are logged in',
       ok: 'Ok',
     },
   },
   ru: {
     translation: {
       'main header': 'Выберите хостинг-провайдера и подключите учетную запись',
-      settings: 'Настройки',
+      'settings': 'Настройки',
       'other server': 'Другой сервер',
       'change check update': 'Проверять обновления',
       'change language': 'Изменить язык',
@@ -30,6 +31,7 @@ export const resources = {
       'create server': 'Создать сервер',
       'login to create server': 'Войдите в аккаунт, чтобы создать сервер',
       'create custom server': 'Создайте свой сервер',
+      'logined': 'Вы авторизованы',
       ok: 'Ок',
     },
   },

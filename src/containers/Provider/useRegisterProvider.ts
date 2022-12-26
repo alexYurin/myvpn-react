@@ -3,7 +3,10 @@ import { useCallback, useEffect } from 'react'
 import { accountsActions } from '@/accounts/slice'
 import { AccountType } from '@/accounts/types'
 import { useTypedSelector, useAppDispatch, RootState } from '@/store'
+import { ModeType } from '@/types'
 import { createSelector } from '@reduxjs/toolkit'
+
+const mode = import.meta.env.MODE as ModeType
 
 export default function useRegisterPrivider(currentAccount: AccountType): [boolean, () => void] {
   const getAccounts = (state: RootState) => state.accounts
@@ -24,8 +27,6 @@ export default function useRegisterPrivider(currentAccount: AccountType): [boole
     registerAccount?.token && registerAccount?.provider === currentAccount.name
   )
 
-  console.log('registerAccount', registerAccount)
-
   const onResponseAuthUrl = useCallback(
     (event: any, responseUrl: string) => {
       const token = new URL(responseUrl)?.searchParams?.get('access_token')
@@ -43,23 +44,34 @@ export default function useRegisterPrivider(currentAccount: AccountType): [boole
   )
 
   const setRegisterProvider = useCallback(() => {
-    if (currentAccount.oauth2 && !isRegisterAccount) {
-      if (currentAccount.oauth2.desktop) {
+    if (!isRegisterAccount && currentAccount.oauth2) {
+      if (mode === 'web') {
+        window.open(currentAccount.oauth2.web.authorize_url, '_blank')
+      } else {
         const { authorize_url, ...urlParams } = currentAccount.oauth2.desktop
 
-        window?.require('electron')?.ipcRenderer
-          ?.invoke('open-auth-window', {
-            authUrl: authorize_url,
-            authParams: new URLSearchParams(urlParams).toString(),
-          }
-        )
+        try {
+          window?.require('electron')?.ipcRenderer
+            ?.invoke('open-auth-window', {
+              authUrl: authorize_url,
+              authParams: new URLSearchParams(urlParams).toString(),
+            }
+          )
+        } catch(error) {
+          console.log()
+        }
       }
     }
-  }, [isRegisterAccount])
+  }, [isRegisterAccount, currentAccount])
 
   useEffect(() => {
-    window?.require('electron')?.ipcRenderer
-      .on('oauth2-response-url', onResponseAuthUrl)
+    try {
+      window?.require('electron')?.ipcRenderer
+        .on('oauth2-response-url', onResponseAuthUrl)
+    } catch(error) {
+      console.log()
+    }
+
   }, [])
 
   return [isRegisterAccount, setRegisterProvider]

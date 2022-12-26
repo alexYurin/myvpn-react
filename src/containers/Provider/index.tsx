@@ -23,8 +23,6 @@ const ProviderContainer = () => {
 
   const [isRegisterProvider, setRegisterProvider] = useRegisterProvider(account)
 
-  console.log('isRegisterProvider', isRegisterProvider)
-
   const onCreateServer = useCallback(() => {
     console.log(`Start create server ${providerRoute}`)
   }, [])
@@ -42,9 +40,13 @@ const ProviderContainer = () => {
     (account?.oauth2 || account?.isOnlyAuthViaKey)
   )
 
+  const header = isRegisterProvider
+    ? t('logined')
+    : t(account?.pageHeader)
+
   return (
     <div className={cx('provider')}>
-      <h2 className={cx('head')}>{t(account?.pageHeader)}</h2>
+      <h2 className={cx('head')}>{header}</h2>
       <AuthButtons
         isVisible={isVisibleAuthButtons}
         isOnlyAuthVuaKey={account?.isOnlyAuthViaKey}

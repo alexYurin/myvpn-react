@@ -14,8 +14,8 @@ export type OAuth2Type = {
 }
 
 export type Oath2ConfigType = {
-  desktop: OAuth2Type | null
-  web: OAuth2Type | null
+  desktop: OAuth2Type
+  web: OAuth2Type
 }
 
 export type AccountType = {

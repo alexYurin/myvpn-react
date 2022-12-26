@@ -19,7 +19,7 @@ const logger = createLogger()
 const persistConfig = {
   storage,
   key: 'root',
-  whitelist: ['theme', 'locale', 'accounts']
+  blacklist: ['theme', 'locale', 'accounts']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
