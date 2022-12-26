@@ -17,8 +17,9 @@ import storage from 'redux-persist/lib/storage'
 const logger = createLogger()
 
 const persistConfig = {
-  key: 'root',
   storage,
+  key: 'root',
+  whitelist: ['theme', 'locale', 'accounts']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
