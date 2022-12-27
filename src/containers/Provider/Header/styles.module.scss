@@ -1,0 +1,67 @@
+@use 'styles/functions' as fn;
+@use 'styles/config' as cfg;
+@use 'styles/mixins' as mx;
+@use 'styles/colors' as clr;
+
+$icon-login-size: 12px;
+$icon-login-color: clr.$white-100;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: fn.offset();
+}
+
+.title {
+  @include mx.set-font(1.5rem, '500');
+
+  margin: 0 fn.offset() 0 0;
+  padding: fn.offset(0.5) 0;
+}
+
+.auth-buttons {
+  flex-flow: row wrap;
+}
+
+.button {
+  @include mx.themify('background-color', 'drop');
+  @include mx.themify('border-color', 'primary');
+  @include mx.themify('color', 'provider-screen-title-text');
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+  padding: fn.offset(0.5) fn.offset();
+
+  &:not(:last-child) {
+    margin-right: fn.offset(0.5);
+  }
+
+  &:hover {
+    @include mx.themify('background-color', 'main-bg', 'lightness', 20%);
+  }
+}
+
+.button-inner {
+  @include mx.set-font(1.2rem, '600');
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    line-height: 0;
+  }
+
+  svg {
+    margin-right: fn.offset(0.5);
+  }
+}
+
+:export {
+  iconLoginSize: $icon-login-size;
+  iconLoginColor: $icon-login-color;
+}

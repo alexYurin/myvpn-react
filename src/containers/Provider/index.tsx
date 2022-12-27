@@ -1,11 +1,13 @@
 /* eslint-disable camelcase */
 import { useState, useCallback } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import { accountsActions } from '@/accounts/slice'
+import { useAppDispatch } from '@/store'
 import { ProviderLinkProps } from '@/containers/types'
-import useRegisterProvider from './useRegisterProvider'
+import useRegisterAccount from '@/accounts/useRegisterAccount'
 import AuthModal from './AuthModal'
-import AuthButtons from './AuthButtons'
+import Header from './Header'
 import Empty from './Empty'
 import FAQ from './FAQ'
 import styles from './styles.module.scss'
@@ -21,7 +23,9 @@ const ProviderContainer = () => {
 
   const { account } = state || {}
 
-  const [isRegisterProvider, setRegisterProvider] = useRegisterProvider(account)
+  const [isRegisterProvider, setRegisterProvider] = useRegisterAccount(account)
+
+  const dispatch = useAppDispatch()
 
   const onCreateServer = useCallback(() => {
     console.log(`Start create server ${providerRoute}`)
@@ -35,6 +39,10 @@ const ProviderContainer = () => {
     console.log(`Start check auth key ${providerRoute}`)
   }, [])
 
+  const onPressLogout = useCallback(() => {
+    dispatch(accountsActions.logoutAccount(account.name))
+  }, [account])
+
   const isVisibleAuthButtons = Boolean(
     !isRegisterProvider &&
     (account?.oauth2 || account?.isOnlyAuthViaKey)
@@ -46,15 +54,20 @@ const ProviderContainer = () => {
 
   return (
     <div className={cx('provider')}>
-      <h2 className={cx('head')}>{header}</h2>
-      <AuthButtons
-        isVisible={isVisibleAuthButtons}
+      <Header
+        title={header}
+        isRegisterProvider={isRegisterProvider}
+        isVisibleAuthButtons={isVisibleAuthButtons}
         isOnlyAuthVuaKey={account?.isOnlyAuthViaKey}
         onPressAccountButton={setRegisterProvider}
         onPressAccountKey={onPressAuthKey}
+        onPressLogout={onPressLogout}
       />
-      <Empty isVisible={false} onPressCreateButton={onCreateServer} />
       <FAQ urlWebsite={account?.website} urlFAQ={account?.faq} />
+      <Empty
+        isVisible={isRegisterProvider}
+        onPressCreateButton={onCreateServer}
+      />
       <AuthModal
         isOpen={isOpenAuthModal}
         setVisible={setOpenAuthModal}
@@ -64,4 +77,4 @@ const ProviderContainer = () => {
   )
 }
 
-export default withTranslation()(ProviderContainer)
+export default ProviderContainer

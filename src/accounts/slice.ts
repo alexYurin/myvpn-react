@@ -18,15 +18,15 @@ const slice = createSlice({
       ...state,
       action.payload,
     ],
-    removeAccount: (state, action: PayloadAction<SliceAccountType>) => [
-      ...state.filter(account => account.provider !== action.payload.provider),
+    logoutAccount: (state, action: PayloadAction<AccountNameType>) => [
+      ...state.filter(account => account.provider !== action.payload),
     ],
   },
 })
 
 export const accountsActions = {
   registerAccount: slice.actions.registerAccount,
-  removeAccount: slice.actions.removeAccount,
+  logoutAccount: slice.actions.logoutAccount,
 }
 
 export default slice

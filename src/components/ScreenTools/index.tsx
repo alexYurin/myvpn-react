@@ -6,7 +6,14 @@ import CloseButton from './CloseButton'
 import MaximizeButton from './MaximizeButton'
 import MinimizeButton from './MinimizeButton'
 
-const mode = import.meta.env.MODE as ModeType
+const DEFAULT_SCREEN_TOOL_MODE: ModeType = 'linux'
+
+const envMode = import.meta.env.MODE as ModeType
+const mode =
+  envMode === 'development' || envMode === 'production'
+    ? DEFAULT_SCREEN_TOOL_MODE
+    : envMode
+
 const cx = classNames.bind(styles)
 
 const getInvoker = (command: string) => {

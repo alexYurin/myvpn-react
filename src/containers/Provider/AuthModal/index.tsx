@@ -1,4 +1,4 @@
-import { useTranslation, withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { Modal, Form, Button } from '@/components'
 import { ModalProps } from '@/components/Modal'
 import styles from './styles.module.scss'
@@ -27,4 +27,4 @@ const AuthModal = ({ onCheckAuthKey, ...props }: AuthInputModalProps): JSX.Eleme
   )
 }
 
-export default withTranslation()(AuthModal)
+export default AuthModal

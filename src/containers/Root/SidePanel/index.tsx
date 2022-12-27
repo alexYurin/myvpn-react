@@ -1,8 +1,9 @@
-import { withTranslation, useTranslation } from 'react-i18next'
-import { NavLink, useParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { SettingsOutline } from 'react-ionicons'
-import classNames from 'classnames/bind'
+import { AccountType } from '@/accounts/types'
+import AccountItem from './AccountItem'
 import pkg from '@/../package.json'
+import classNames from 'classnames/bind'
 import styles from './styles.module.scss'
 import accounts from '@/accounts'
 
@@ -15,8 +16,11 @@ const cx = classNames.bind(styles)
 const { iconSettingsColor } = styles
 
 const SidePanel = ({ onPressSettings }: SidePanelProps): JSX.Element => {
-  const { providerRoute } = useParams()
   const { t } = useTranslation()
+
+  const renderAccount = (account: AccountType) => {
+    return <AccountItem key={account.name} account={account} />
+  }
 
   return (
     <section className={cx('side-panel')}>
@@ -28,23 +32,7 @@ const SidePanel = ({ onPressSettings }: SidePanelProps): JSX.Element => {
         </div>
       </div>
       <nav className={cx('nav')}>
-        {accounts.map(account => (
-          <NavLink
-            to={`/providers/${account.name}`}
-            key={account.name}
-            state={{ account }}
-            className={cx('nav__item', {
-              'nav__item_active': providerRoute === account.name,
-            })}
-          >
-            <img
-              className={cx('nav__item-image', `${account.name}-logo`)}
-              src={account.logo}
-              alt={account.title}
-            />
-            <span className={cx('nav__item-title')}>{t(account.title)}</span>
-          </NavLink>
-        ))}
+        {accounts.map(renderAccount)}
         <div className={cx('nav__item', 'nav__item_bottom')} onClick={onPressSettings}>
           <SettingsOutline color={iconSettingsColor} />
           <span className={cx('nav__item-title')}>{t('settings')}</span>
@@ -54,4 +42,4 @@ const SidePanel = ({ onPressSettings }: SidePanelProps): JSX.Element => {
   )
 }
 
-export default withTranslation()(SidePanel)
+export default SidePanel

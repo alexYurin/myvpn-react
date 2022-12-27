@@ -1,4 +1,4 @@
-import { useTranslation, withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { CloudOfflineOutline } from 'react-ionicons'
 import { Button } from '@/components'
 import SectionBox from '@/containers/Provider/SectionBox'
@@ -39,4 +39,4 @@ const Empty = ({ isVisible, onPressCreateButton }: EmptyPropviderProps): JSX.Ele
   return null
 }
 
-export default withTranslation()(Empty)
+export default Empty

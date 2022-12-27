@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom'
-import { useTranslation, withTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import { ProviderLinkProps } from '@/containers/types'
 import styles from './styles.module.scss'
 import classNames from 'classnames/bind'
@@ -29,4 +29,4 @@ const ScreenTitle = (): JSX.Element => {
   )
 }
 
-export default withTranslation()(ScreenTitle)
+export default ScreenTitle

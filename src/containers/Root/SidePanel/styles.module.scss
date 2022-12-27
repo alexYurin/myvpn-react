@@ -13,6 +13,8 @@ $icon-size: 21px;
 $icon-size-half: fn.half($icon-size);
 $icon-settings-size: 30px;
 $icon-settings-color: clr.$white-100;
+$icon-register-size: 10px;
+$icon-register-color: clr.$white-100;
 $head-offset-top: fn.offset(0.4);
 $fx-duration: 0.3s;
 
@@ -35,12 +37,13 @@ $fx-duration: 0.3s;
 
     .title,
     .nav__item-title {
-      opacity: 1;
       transform: scaleX(1);
     }
 
     .title {
       @include mx.set-font(1.2rem, "600");
+
+      opacity: 1;
     }
 
     .nav__item-title {
@@ -130,25 +133,37 @@ $fx-duration: 0.3s;
   }
 
   &__item {
+    position: relative;
     align-items: center;
     padding: fn.offset(0.5);
     width: 100%;
     border-radius: cfg.$radius;
-    opacity: 0.6;
     cursor: pointer;
+
+    .nav__item-image,
+    .nav__item-title {
+      opacity: 0.6;
+    }
 
     &:not(.nav__item_active):hover {
       @include mx.themify('background-color', 'panel-item-hover-bg');
 
-      opacity: 0.8;
+      .nav__item-image,
+      .nav__item-title {
+        opacity: 0.8;
+      }
     }
 
     &_active {
       @include mx.themify('background-color', 'panel-item-active-hover-bg');
 
-      opacity: 1;
       pointer-events: none;
       cursor: default;
+
+      .nav__item-image,
+      .nav__item-title {
+        opacity: 1;
+      }
     }
 
     &_bottom {
@@ -166,6 +181,28 @@ $fx-duration: 0.3s;
 
     &:not(:last-child) {
       margin-bottom: fn.offset(0.5);
+    }
+
+    &-register-icon {
+      @include mx.themify('background-color', 'primary');
+
+      display: inline-flex;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      top: $icon-size * 0.2;
+      left: $icon-size * 1.2;
+      width: $icon-register-size * 1.5;
+      height: $icon-register-size * 1.5;
+      border-radius: 50%;
+
+      span {
+        @include mx.in-theme('light') {
+          filter: invert(1);
+        }
+
+        line-height: 0;
+      }
     }
 
     &-image {
@@ -196,4 +233,6 @@ $fx-duration: 0.3s;
 
 :export {
   iconSettingsColor: $icon-settings-color;
+  iconRegisterColor: $icon-register-color;
+  iconRegisterSize: $icon-register-size;
 }

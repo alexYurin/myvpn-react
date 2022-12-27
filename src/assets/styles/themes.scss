@@ -18,6 +18,7 @@ $theme-common: (
 
 $theme-dark: (
   primary: clr.$primary,
+  drop: transparent,
   main-bg: clr.$background,
   panel-bg: rgba(clr.$selection, 0.5),
   panel-divider: color.adjust(clr.$selection, $lightness: 10%),
@@ -34,6 +35,7 @@ $theme-dark: (
 
 $theme-light: (
   primary: clr.$primary,
+  drop: transparent,
   main-bg: color.adjust(clr.$foreground, $lightness: 5%),
   panel-bg: rgba(color.adjust(clr.$comment, $lightness: 45%), 0.4),
   panel-divider: color.adjust(clr.$comment, $lightness: 40%),

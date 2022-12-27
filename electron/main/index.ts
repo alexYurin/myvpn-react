@@ -13,8 +13,11 @@ process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
 process.env.PUBLIC = app.isPackaged ? process.env.DIST : join(process.env.DIST_ELECTRON, '../public')
 
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
+import ElectronStore from 'electron-store'
 import { release } from 'os'
 import { join } from 'path'
+
+ElectronStore.initRenderer()
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith('6.1')) app.disableHardwareAcceleration()
@@ -110,7 +113,7 @@ ipcMain.handle('open-win', (event, arg) => {
 })
 
 ipcMain.handle('open-auth-window', (event, arg) => {
-  const { authUrl, authParams } = arg
+  const { authUrl, authParams, accountName } = arg
 
   const childWindow = new BrowserWindow({
     webPreferences: {
@@ -131,7 +134,7 @@ ipcMain.handle('open-auth-window', (event, arg) => {
   childWindow.loadURL(`${authUrl}/?${authParams}`)
 
   webRequest.onBeforeRequest(filter, async ({ url }) => {
-    await event.sender.send('oauth2-response-url', url.replace('/#', '?'))
+    await event.sender.send('oauth2-response-url', url.replace('/#', '?'), accountName)
     childWindow.close()
   })
 })

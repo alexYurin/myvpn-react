@@ -12,14 +12,23 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import webStorage from 'redux-persist/lib/storage'
 
 const logger = createLogger()
+
+const getPlatformStorage = () => {
+  try {
+    return require('redux-persist-electron-storage')()
+  } catch(error) {
+    return webStorage
+  }
+}
+
+const storage = getPlatformStorage()
 
 const persistConfig = {
   storage,
   key: 'root',
-  blacklist: ['theme', 'locale', 'accounts']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
